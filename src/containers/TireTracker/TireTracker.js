@@ -6,10 +6,14 @@ import BuildControls from '../../components/Tire/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Tire/OrderSummary/OrderSummary';
 
+const TIRE_PRICES = {
+    quantity: 50,
+};
+
 class TireTracker extends Component {
     state = {
         tireQuantity: {
-            num: 0,
+            quantity: 0,
         },
 
         tire: {
@@ -42,7 +46,12 @@ class TireTracker extends Component {
             ...this.state.tireQuantity
         };
         updatedQuantity[type] = newQuantity;
-        this.setState( { tireQuantity: updatedQuantity } );
+
+        const priceAddition = TIRE_PRICES[type];
+        const oldPrice = this.state.totalPrice;
+        const newPrice = oldPrice + priceAddition;
+
+        this.setState( { totalPrice: newPrice, tireQuantity: updatedQuantity } );
         this.updatePurchaseState( updatedQuantity );
     }
 
@@ -56,7 +65,12 @@ class TireTracker extends Component {
             ...this.state.tireQuantity
         };
         updatedQuantity[type] = newQuantity;
-        this.setState( { tireQuantity: updatedQuantity } );
+
+        const priceDeduction = TIRE_PRICES[type];
+        const oldPrice = this.state.totalPrice;
+        const newPrice = oldPrice - priceDeduction;
+
+        this.setState( { totalPrice: newPrice, tireQuantity: updatedQuantity } );
         this.updatePurchaseState( updatedQuantity );
     }
 
@@ -66,6 +80,10 @@ class TireTracker extends Component {
 
     purchaseCancelHandler = () => {
         this.setState( { purchasing: false } );
+    }
+
+    purchaseContinueHandler = () => {
+        alert('You continue');
     }
 
     render () {
@@ -79,8 +97,12 @@ class TireTracker extends Component {
 
         return (
             <Aux>
-                <Modal show={this.state.purchasable} modalClosed={this.purchaseCancelHandler} >
-                    <OrderSummary tireQuantity={this.state.tireQuantity} />
+                <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler} >
+                    <OrderSummary 
+                        tireQuantity={this.state.tireQuantity}
+                        purchaseCancelled={this.purchaseCancelHandler}
+                        purchaseContinued={this.purchaseContinueHandler}
+                        price={this.state.totalPrice} />
                 </Modal>
 
                 <Tire tireQuantity={this.state.tireQuantity}/>
@@ -90,7 +112,8 @@ class TireTracker extends Component {
                     quantityRemoved={this.removeQuantityHandler}
                     disabled={disabledInfo}
                     purchasable={this.state.purchasable}
-                    ordered={this.purchaseHandler}/>
+                    orderReady={this.purchaseHandler}
+                    price={this.state.totalPrice}/>
             </Aux>
         );
     }

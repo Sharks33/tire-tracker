@@ -33,12 +33,12 @@
 }
 
 .OrderButton:hover, .OrderButton:active {
-    background-color: #A0DB41;
-    border: 1px solid #966909;
-    color: #966909;
+    background-color: #5BB76E;
+    color: rgb(0, 7, 2);
 }
 
 .OrderButton:disabled {
+    box-shadow: none;
     background-color: #C7C6C6;
     cursor: not-allowed;
     border: 1px solid #ccc;

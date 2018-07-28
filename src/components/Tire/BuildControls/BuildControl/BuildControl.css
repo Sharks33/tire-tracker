@@ -69,10 +69,11 @@
     cursor: pointer;
     margin: 3.5px;
     font-size: 20px;
+    text-align: center;
 }
 
 .QuantityBtn {
-    display: inline;
+    /* display: inline; */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -84,6 +85,7 @@
     cursor: pointer;
     margin: 3.5px;
     font-size: 20px;
+    text-align: center;
 }
 
 .ConfirmBtn {
@@ -99,4 +101,11 @@
     cursor: pointer;
     margin: 3.5px;
     font-size: 20px;
+}
+
+@media (max-width: 500px) {
+    .BuildControl {
+        display: block !important;
+        text-align: center !important;
+    }
 }

@@ -10,7 +10,7 @@ class Tires extends Component {
             case('none'):
                 tireQuantity = <div><img src={require('../../../assets/TireKingLogo.png')} alt="tire-logo" /></div>;
                 break;
-            case('num'):
+            case('quantity'):
                 tireQuantity = <img src={require('./tire.png')} alt="tire-logo" />;
                 break;
             default:
