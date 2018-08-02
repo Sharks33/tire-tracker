@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Layout from './components/Layout/Layout';
+import Layout from './hoc/Layout/Layout';
 import TireTracker from './containers/TireTracker/TireTracker';
 
 class App extends Component {

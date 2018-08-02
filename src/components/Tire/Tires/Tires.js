@@ -8,10 +8,10 @@ class Tires extends Component {
 
         switch ( this.props.type ) {
             case('none'):
-                tireQuantity = <div><img src={require('../../../assets/TireKingLogo.png')} alt="tire-logo" /></div>;
+                tireQuantity = <div><img src={require('../../../assets/images/TireKingLogo.png')} alt="tire-logo" /></div>;
                 break;
             case('quantity'):
-                tireQuantity = <img src={require('./tire.png')} alt="tire-logo" />;
+                tireQuantity = <img src={require('../../../assets/images/tire.png')} alt="tire-logo" />;
                 break;
             default:
                 tireQuantity = null;

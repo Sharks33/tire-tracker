@@ -28,3 +28,16 @@
         height: 350px;
     }
 }
+
+.NumTires {
+    display: inline-block;
+    color:#343334;
+    font-size: 130px;
+    -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-color: #5bb76e;
+}
+
+.NumTires div {
+    display: inline-block;
+    vertical-align: top;
+}
