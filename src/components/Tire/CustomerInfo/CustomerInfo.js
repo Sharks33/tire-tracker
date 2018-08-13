@@ -4,9 +4,9 @@ import Aux from '../../../hoc/Aux/Aux';
 import Button from '../../UI/Button/Button';
 
 class CustomerInfo extends Component {
-    componentWillUpdate() {
-        console.log('[CustomerInfo] will update');
-    }
+    // componentWillUpdate() {
+    //     console.log('[CustomerInfo] will update');
+    // }
     
     render () {
 

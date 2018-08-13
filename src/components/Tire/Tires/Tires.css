@@ -1,0 +1,11 @@
+@media (max-width: 500px) {
+    .Tires {
+        width: 50px;
+    }
+}
+
+@media (max-width: 790px) and (min-width: 501px) {
+    .Tires {
+        width: 90px;  
+    }
+}

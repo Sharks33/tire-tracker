@@ -130,7 +130,6 @@ class OrderSummary extends Component {
                 <div style={{display: 'inline'}}>
                     <input required type="text" name="vin" value={this.props.street} placeholder="Vin" onChange={this.props.vehicleVinUpdate}/>
                 </div>
-                {/* <textarea placeholder="Notes"></textarea> */}
                 
 
                 <ul>

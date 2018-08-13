@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import classes from './Tires.css';
+
 
 class Tires extends Component {
     render () {
@@ -11,7 +13,7 @@ class Tires extends Component {
                 tireQuantity = <div><img src={require('../../../assets/images/TireKingLogo.png')} alt="tire-logo" /></div>;
                 break;
             case('quantity'):
-                tireQuantity = <img src={require('../../../assets/images/tire.png')} alt="tire-logo" />;
+                tireQuantity = <img className={classes.Tires} src={require('../../../assets/images/tire.png')} alt="tire-logo" />;
                 break;
             default:
                 tireQuantity = null;

@@ -127,22 +127,36 @@ class TireTracker extends Component {
 
     purchaseContinueHandler = () => {
         // alert('You continue');
-        this.setState( { loading: true } );
-        const order = {
-            tireQuantity: this.state.tireQuantity,
-            tire: this.state.tire,
-            totalPrice: this.state.totalPrice,
-            customer: this.state.customer,
-            address: this.state.address,
-            vehicle: this.state.vehicle,
+        // this.setState( { loading: true } );
+        // const order = {
+        //     tireQuantity: this.state.tireQuantity,
+        //     tire: this.state.tire,
+        //     totalPrice: this.state.totalPrice,
+        //     customer: this.state.customer,
+        //     address: this.state.address,
+        //     vehicle: this.state.vehicle,
+        // }
+        // axios.post('/orders.json', order)
+        //     .then( response => {
+        //         this.setState( { loading: false, purchasing: false } );
+        //     })
+        //     .catch( error => {
+        //         this.setState( { loading: false, purchasing: false } );
+        //     });
+        const queryParams = [];
+
+        for ( let i in this.state.tireQuantity ) {
+            queryParams.push( encodeURIComponent(i) + "=" + encodeURIComponent(this.state.tireQuantity[i]) );
         }
-        axios.post('/orders.json', order)
-            .then( response => {
-                this.setState( { loading: false, purchasing: false } );
-            })
-            .catch( error => {
-                this.setState( { loading: false, purchasing: false } );
-            });
+
+        queryParams.push('price=' + this.state.totalPrice);
+
+        const queryString = queryParams.join('&');
+
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
     }
 
     customerFirstNameHandler = (event) => {
