@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Aux from '../../hoc/Aux/Aux';
 import Tire from '../../components/Tire/Tire';
@@ -8,6 +9,7 @@ import OrderSummary from '../../components/Tire/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
+import * as actionTypes from '../../store/actions';
 
 const TIRE_PRICES = {
     quantity: 50,
@@ -22,11 +24,7 @@ const minute = date.getMinutes();
 
 class TireTracker extends Component {
     state = {
-        tireQuantity: {
-            quantity: 0,
-        },
-
-
+        
         customer: {
             firstname: null,
             lastname: null,
@@ -61,13 +59,13 @@ class TireTracker extends Component {
     }
 
     componentDidMount () {
-        axios.get('https://react-tire-tracker.firebaseio.com/tires.json')
-        .then(response => {
-            this.setState( { tires: response.data } );
-        })
-        .catch(error => {
-            this.setState( { error: true } );
-        });
+        // axios.get('https://react-tire-tracker.firebaseio.com/tires.json')
+        // .then(response => {
+        //     this.setState( { tires: response.data } );
+        // })
+        // .catch(error => {
+        //     this.setState( { error: true } );
+        // });
     }
 
     updatePurchaseState ( tireQuantity ) {
@@ -233,7 +231,7 @@ class TireTracker extends Component {
         
         
         const disabledInfo = {
-            ...this.state.tireQuantity
+            ...this.props.qnt
         }
 
         for ( let key in disabledInfo ) {
@@ -248,12 +246,12 @@ class TireTracker extends Component {
 
         let tire = this.state.error ? <p>Tires can't be loaded...</p> : <Spinner />
 
-        if ( this.state.tires ) {
+        if ( this.props.qnt ) {
             tire = (<Aux>
-                    <Tire tireQuantity={this.state.tireQuantity}/>
+                    <Tire tireQuantity={this.props.qnt}/>
                     <BuildControls 
-                        quantityAdded={this.addQuantityHandler}
-                        quantityRemoved={this.removeQuantityHandler}
+                        quantityAdded={this.props.onQuantityAdded}
+                        quantityRemoved={this.props.onQuantityRemoved}
                         disabled={disabledInfo}
                         purchasable={this.state.purchasable}
                         orderReady={this.purchaseHandler}
@@ -261,7 +259,7 @@ class TireTracker extends Component {
                 </Aux>);
 
             orderSummary = <OrderSummary 
-                tireQuantity={this.state.tireQuantity}
+                tireQuantity={this.props.qnt}
                 purchaseCancelled={this.purchaseCancelHandler}
                 purchaseContinued={this.purchaseContinueHandler}
                 customerFirstNameUpdate={this.customerFirstNameHandler}
@@ -301,4 +299,17 @@ class TireTracker extends Component {
     }
 };
 
-export default withErrorHandler(TireTracker, axios);
+const mapStateToProps = state => {
+    return {
+        qnt: state.tireQuantity
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onQuantityAdded: ( qntName ) => dispatch({ type: actionTypes.ADD_QUANTITY, tireQuantityName: qntName }),
+        onQuantityRemoved: ( qntName ) => dispatch({ type: actionTypes.REMOVE_QUANTITY, tireQuantityName: qntName })
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (withErrorHandler(TireTracker, axios));
