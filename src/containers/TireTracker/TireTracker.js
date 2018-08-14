@@ -11,10 +11,6 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
 import * as actionTypes from '../../store/actions';
 
-const TIRE_PRICES = {
-    quantity: 50,
-};
-
 const date = new Date();
 const month = date.getMonth();
 const day = date.getDate();
@@ -51,7 +47,6 @@ class TireTracker extends Component {
         hour: hour,
         minute: minute,
         
-        totalPrice: 0,
         purchasable: false,
         purchasing: false,
         loading: false,
@@ -78,41 +73,6 @@ class TireTracker extends Component {
             }, 0);
         // console.log("SUM", sum);
         this.setState( { purchasable: sum > 0 } );
-    }
-
-    addQuantityHandler = ( type ) => {
-        const oldQunatity = this.state.tireQuantity[type];
-        const newQuantity = oldQunatity + 1;
-        const updatedQuantity = {
-            ...this.state.tireQuantity
-        };
-        updatedQuantity[type] = newQuantity;
-
-        const priceAddition = TIRE_PRICES[type];
-        const oldPrice = this.state.totalPrice;
-        const newPrice = oldPrice + priceAddition;
-
-        this.setState( { totalPrice: newPrice, tireQuantity: updatedQuantity } );
-        this.updatePurchaseState( updatedQuantity );
-    }
-
-    removeQuantityHandler = ( type ) => {
-        const oldQunatity = this.state.tireQuantity[type];
-        if ( oldQunatity <= 0 ) {
-            return;
-        }
-        const newQuantity = oldQunatity - 1;
-        const updatedQuantity = {
-            ...this.state.tireQuantity
-        };
-        updatedQuantity[type] = newQuantity;
-
-        const priceDeduction = TIRE_PRICES[type];
-        const oldPrice = this.state.totalPrice;
-        const newPrice = oldPrice - priceDeduction;
-
-        this.setState( { totalPrice: newPrice, tireQuantity: updatedQuantity } );
-        this.updatePurchaseState( updatedQuantity );
     }
 
     purchaseHandler = () => {
@@ -255,7 +215,7 @@ class TireTracker extends Component {
                         disabled={disabledInfo}
                         purchasable={this.state.purchasable}
                         orderReady={this.purchaseHandler}
-                        price={this.state.totalPrice}/>
+                        price={this.props.price}/>
                 </Aux>);
 
             orderSummary = <OrderSummary 
@@ -280,7 +240,7 @@ class TireTracker extends Component {
                 year={this.state.year}
                 hour={this.state.hour}
                 minute={this.state.minute}
-                price={this.state.totalPrice} />;
+                price={this.props.price} />;
         }
 
         if ( this.state.loading ) {
@@ -301,7 +261,8 @@ class TireTracker extends Component {
 
 const mapStateToProps = state => {
     return {
-        qnt: state.tireQuantity
+        qnt: state.tireQuantity,
+        price: state.totalPrice
     };
 }
 
