@@ -47,7 +47,6 @@ class TireTracker extends Component {
         hour: hour,
         minute: minute,
         
-        purchasable: false,
         purchasing: false,
         loading: false,
         error: false
@@ -72,7 +71,7 @@ class TireTracker extends Component {
                 return sum + el;
             }, 0);
         // console.log("SUM", sum);
-        this.setState( { purchasable: sum > 0 } );
+        return sum > 0;
     }
 
     purchaseHandler = () => {
@@ -213,7 +212,7 @@ class TireTracker extends Component {
                         quantityAdded={this.props.onQuantityAdded}
                         quantityRemoved={this.props.onQuantityRemoved}
                         disabled={disabledInfo}
-                        purchasable={this.state.purchasable}
+                        purchasable={this.updatePurchaseState(this.props.qnt)}
                         orderReady={this.purchaseHandler}
                         price={this.props.price}/>
                 </Aux>);
