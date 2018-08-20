@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
@@ -40,13 +41,13 @@ class ContactData extends Component {
             email: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'text',
+                    type: 'email',
                     placeholder: 'Email'
                 },
                 value: '',
                 validation: {
                     required: true,
-                    minLength: 5,
+                    isEmail: true,
                 },
                 valid: false,
                 touched: false
@@ -54,13 +55,14 @@ class ContactData extends Component {
             phone: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'text',
+                    type: 'phone',
                     placeholder: 'Phone'
                 },
                 value: '',
                 validation: {
                     required: true,
                     minLength: 10,
+                    isNumeric: true
                 },
                 valid: false,
                 touched: false
@@ -118,6 +120,7 @@ class ContactData extends Component {
                     required: true,
                     minLength: 5,
                     maxLength: 5,
+                    isNumeric: true
                 },
                 valid: false,
                 touched: false
@@ -161,7 +164,7 @@ class ContactData extends Component {
         }
 
         const order = {
-            tireQuantity: this.props.tireQuantity,
+            tireQuantity: this.props.qnt,
             price: this.props.price,
             orderData: formData
             // tire: this.state.tire,
@@ -192,6 +195,16 @@ class ContactData extends Component {
 
         if ( rules.maxLength ) {
             isValid = value.length <= rules.maxLength && isValid;
+        }
+
+        if (rules.isEmail) {
+            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        if (rules.isNumeric) {
+            const pattern = /^\d+$/;
+            isValid = pattern.test(value) && isValid
         }
 
         return isValid;
@@ -289,4 +302,11 @@ class ContactData extends Component {
 
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+    return {
+        qnt: state.tireQuantity,
+        price: state.totalPrice
+    }
+}
+
+export default connect(mapStateToProps)(ContactData);
