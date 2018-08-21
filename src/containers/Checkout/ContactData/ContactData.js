@@ -6,6 +6,8 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import classes from './ContactData.css'
 import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as actions from '../../../store/actions/index';
 
 class ContactData extends Component {
     state = {
@@ -156,7 +158,6 @@ class ContactData extends Component {
 
     orderHandler = ( event ) => {
         event.preventDefault();
-        this.setState( { loading: true } );
 
         const formData = {};
         for ( let formElementIdentifier in this.state.orderForm ) {
@@ -172,6 +173,8 @@ class ContactData extends Component {
             // address: this.state.address,
             // vehicle: this.state.vehicle,
         }
+
+        this.props.onOrderTire( order );
     }
 
     checkValidity = ( value, rules ) => {
@@ -294,6 +297,10 @@ class ContactData extends Component {
 
 }
 
+const mapDispatchToProps = dispatch => {
+    onOrderTire: ( orderData ) => dispatch( actions.purchaseTireStart( orderData ) )
+}
+
 const mapStateToProps = state => {
     return {
         qnt: state.tireQuantity,
@@ -301,4 +308,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(ContactData);
+export default connect(mapStateToProps)(withErrorHandler(ContactData, axios));
