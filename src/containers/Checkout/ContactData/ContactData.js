@@ -304,9 +304,9 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        qnt: state.tireQuantity,
-        price: state.totalPrice,
-        loading: state.loading
+        qnt: state.tireTracker.tireQuantity,
+        price: state.tireTracker.totalPrice,
+        loading: state.order.loading
     }
 }
 

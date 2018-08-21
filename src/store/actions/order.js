@@ -28,7 +28,7 @@ export const purchaseTire = ( orderData ) => {
         axios.post('/orders.json', orderData)
             .then( response => {
                 console.log(response.data);
-                dispatch( purchaseTireSuccess( response.data, orderData ) );
+                dispatch( purchaseTireSuccess( response.data.name, orderData ) );
             })
             .catch( error => {
                 dispatch( purchaseTireFail( error ) );

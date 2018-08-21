@@ -36,7 +36,7 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
     return {
-        qnt: state.tireQuantity
+        qnt: state.tireTracker.tireQuantity
     }
 }
 

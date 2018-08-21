@@ -222,9 +222,9 @@ class TireTracker extends Component {
 
 const mapStateToProps = state => {
     return {
-        qnt: state.tireQuantity,
-        price: state.totalPrice,
-        error: state.error
+        qnt: state.tireTracker.tireQuantity,
+        price: state.tireTracker.totalPrice,
+        error: state.tireTracker.error
     };
 }
 
