@@ -8,6 +8,11 @@ const initialState = {
 
 const reducer = ( state = initialState, action ) => {
     switch( action.type ) {
+        case actionTypes.PURCHASE_TIRE_START:
+            return {
+                ...state,
+                loading: true
+            }
         case actionTypes.PURCHASE_TIRE_SUCCESS:
             const newOrder = {
                 ...action.orderData,

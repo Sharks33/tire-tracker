@@ -16,8 +16,15 @@ export const purchaseTireFail = ( error ) => {
     };
 }
 
-export const purchaseTireStart = ( orderData ) => {
+export const purchaseTireStart = () => {
+    return {
+        type: actionTypes.PURCHASE_TIRE_START
+    }
+}
+
+export const purchaseTire = ( orderData ) => {
     return dispatch => {
+        dispatch(purchaseTireStart());
         axios.post('/orders.json', orderData)
             .then( response => {
                 console.log(response.data);

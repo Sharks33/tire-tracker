@@ -152,8 +152,7 @@ class ContactData extends Component {
             year: null,
             plate: null,
             vin: null
-        },
-        loading: false,
+        }
     }
 
     orderHandler = ( event ) => {
@@ -284,7 +283,7 @@ class ContactData extends Component {
             </form>
         );
 
-        if ( this.state.loading ) {
+        if ( this.props.loading ) {
             form = <Spinner />
         }
 
@@ -298,14 +297,17 @@ class ContactData extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-    onOrderTire: ( orderData ) => dispatch( actions.purchaseTireStart( orderData ) )
+    return {
+        onOrderTire: ( orderData ) => dispatch( actions.purchaseTire( orderData ) )
+    };
 }
 
 const mapStateToProps = state => {
     return {
         qnt: state.tireQuantity,
-        price: state.totalPrice
+        price: state.totalPrice,
+        loading: state.loading
     }
 }
 
-export default connect(mapStateToProps)(withErrorHandler(ContactData, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
