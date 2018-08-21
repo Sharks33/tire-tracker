@@ -172,14 +172,6 @@ class ContactData extends Component {
             // address: this.state.address,
             // vehicle: this.state.vehicle,
         }
-        axios.post('/orders.json', order)
-            .then( response => {
-                this.setState( { loading: false } );
-                this.props.history.push('/');
-            })
-            .catch( error => {
-                this.setState( { loading: false } );
-            });
     }
 
     checkValidity = ( value, rules ) => {

@@ -102,7 +102,7 @@ class OrderSummary extends Component {
 
                 <h4> Customer Information </h4>
 
-                <div>
+                {/* <div>
                     <input required type="text" name="firstname" value={this.props.firstname} placeholder="First Name" onChange={this.props.customerFirstNameUpdate}/>
                     <input required type="text" name="lastname" value={this.props.lastname} placeholder="Last Name" onChange={this.props.customerLastNameUpdate}/>
                     <input required type="email" name="email" value={this.props.email} placeholder="Email" onChange={this.props.customerEmailUpdate}/>
@@ -129,7 +129,7 @@ class OrderSummary extends Component {
 
                 <div style={{display: 'inline'}}>
                     <input required type="text" name="vin" value={this.props.street} placeholder="Vin" onChange={this.props.vehicleVinUpdate}/>
-                </div>
+                </div> */}
                 
 
                 <ul>

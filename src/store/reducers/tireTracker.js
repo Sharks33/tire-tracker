@@ -1,10 +1,9 @@
-import * as actionTypes from './actions';
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    tireQuantity: {
-        quantity: 0,
-    },
+    tireQuantity: null,
     totalPrice: 0,
+    error: false
 };
 
 const TIRE_PRICES = {
@@ -30,6 +29,17 @@ const reducer = ( state = initialState, action ) => {
                     [action.tireQuantityName]: state.tireQuantity[action.tireQuantityName] - 1
                 },
                 totalPrice: state.totalPrice - TIRE_PRICES[action.tireQuantityName]
+            };
+        case actionTypes.SET_QUANTITY:
+            return {
+                ...state,
+                tireQuantity: action.tireQuantity,
+                error: false
+            };
+        case actionTypes.FETCH_QUANTITY_FAILED:
+            return {
+                ...state,
+                error: true
             };
         default:
             return state;

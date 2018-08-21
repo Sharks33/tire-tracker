@@ -8,8 +8,8 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Tire/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import * as tireTrackerActions from '../../store/actions/index';
 import axios from '../../axios-orders';
-import * as actionTypes from '../../store/actions';
 
 const date = new Date();
 const month = date.getMonth();
@@ -48,18 +48,10 @@ class TireTracker extends Component {
         minute: minute,
         
         purchasing: false,
-        loading: false,
-        error: false
     }
 
     componentDidMount () {
-        // axios.get('https://react-tire-tracker.firebaseio.com/tires.json')
-        // .then(response => {
-        //     this.setState( { tires: response.data } );
-        // })
-        // .catch(error => {
-        //     this.setState( { error: true } );
-        // });
+        this.props.onInitQuantity();
     }
 
     updatePurchaseState ( tireQuantity ) {
@@ -177,7 +169,7 @@ class TireTracker extends Component {
         //     customerInfoUpdate={this.customerInfoHandler} />
 
 
-        let tire = this.state.error ? <p>Tires can't be loaded...</p> : <Spinner />
+        let tire = this.props.error ? <p>Tires can't be loaded...</p> : <Spinner />
 
         if ( this.props.qnt ) {
             tire = (<Aux>
@@ -216,10 +208,6 @@ class TireTracker extends Component {
                 price={this.props.price} />;
         }
 
-        if ( this.state.loading ) {
-            orderSummary = <Spinner />
-        }
-
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler} >
@@ -235,14 +223,16 @@ class TireTracker extends Component {
 const mapStateToProps = state => {
     return {
         qnt: state.tireQuantity,
-        price: state.totalPrice
+        price: state.totalPrice,
+        error: state.error
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onQuantityAdded: ( qntName ) => dispatch({ type: actionTypes.ADD_QUANTITY, tireQuantityName: qntName }),
-        onQuantityRemoved: ( qntName ) => dispatch({ type: actionTypes.REMOVE_QUANTITY, tireQuantityName: qntName })
+        onQuantityAdded: ( qntName ) => dispatch(tireTrackerActions.addQuantity(qntName)),
+        onQuantityRemoved: ( qntName ) => dispatch(tireTrackerActions.removeQuantity(qntName)),
+        onInitQuantity: () => dispatch(tireTrackerActions.initQuantity())
     };
 }
 
