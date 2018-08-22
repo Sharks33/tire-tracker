@@ -34,6 +34,7 @@ const reducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 tireQuantity: action.tireQuantity,
+                totalPrice: 0,
                 error: false
             };
         case actionTypes.FETCH_QUANTITY_FAILED:
