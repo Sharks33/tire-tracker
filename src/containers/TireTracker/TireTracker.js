@@ -8,7 +8,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Tire/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import * as tireTrackerActions from '../../store/actions/index';
+import * as actions from '../../store/actions/index';
 import axios from '../../axios-orders';
 
 const date = new Date();
@@ -75,6 +75,7 @@ class TireTracker extends Component {
     }
 
     purchaseContinueHandler = () => {
+        this.props.onInitPurchase();
         this.props.history.push('/checkout');
     }
 
@@ -230,9 +231,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onQuantityAdded: ( qntName ) => dispatch(tireTrackerActions.addQuantity(qntName)),
-        onQuantityRemoved: ( qntName ) => dispatch(tireTrackerActions.removeQuantity(qntName)),
-        onInitQuantity: () => dispatch(tireTrackerActions.initQuantity())
+        onQuantityAdded: ( qntName ) => dispatch(actions.addQuantity(qntName)),
+        onQuantityRemoved: ( qntName ) => dispatch(actions.removeQuantity(qntName)),
+        onInitQuantity: () => dispatch(actions.initQuantity()),
+        onInitPurchase: () => dispatch(actions.purchaseInit())
     };
 }
 

@@ -1,2 +1,2 @@
 export { addQuantity, removeQuantity, initQuantity } from "./tireTracker";
-export { purchaseTire } from './order';
+export { purchaseTire, purchaseInit } from './order';

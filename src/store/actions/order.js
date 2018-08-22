@@ -35,3 +35,9 @@ export const purchaseTire = ( orderData ) => {
             });
     }
 }
+
+export const purchaseInit = () => {
+    return {
+        type: actionTypes.PURCHASE_INIT
+    }
+}

@@ -4,6 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
 import { connect } from 'react-redux';
+// import * as actions from '../../store/actions/index';
 
 class Checkout extends Component {
     
@@ -19,8 +20,11 @@ class Checkout extends Component {
         let summary = <Redirect to='/'/>;
 
         if ( this.props.qnt ) {
+            const purchasedRedirect = this.props.purchased ? <Redirect to='/'/> : null;
+
             summary = (
                 <div>
+                    { purchasedRedirect }
                     <CheckoutSummary 
                         tireQuantity={this.props.qnt} 
                         checkoutCancelled={this.checkoutCancelledHandler}
@@ -36,8 +40,9 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
     return {
-        qnt: state.tireTracker.tireQuantity
+        qnt: state.tireTracker.tireQuantity,
+        purchased: state.order.purchased
     }
 }
 
-export default connect(mapStateToProps)(Checkout);
+export default connect( mapStateToProps )(Checkout);
