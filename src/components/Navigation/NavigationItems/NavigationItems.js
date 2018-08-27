@@ -8,6 +8,7 @@ const navigationItems = ( props ) => (
         <NavigationItem link="/">TIRE TRACKER</NavigationItem>
         <NavigationItem link="/orders">INVOICES</NavigationItem>
         <NavigationItem link="/inventory">INVENTORY</NavigationItem>
+        <NavigationItem link="/auth">SIGN IN</NavigationItem>
     </ul>
 );
 
