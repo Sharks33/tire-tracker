@@ -51,7 +51,7 @@ class TireTracker extends Component {
     }
 
     componentDidMount () {
-        this.props.onInitQuantity();
+        this.props.onInitQuantity( this.props.token );
     }
 
     updatePurchaseState ( tireQuantity ) {
@@ -225,7 +225,8 @@ const mapStateToProps = state => {
     return {
         qnt: state.tireTracker.tireQuantity,
         price: state.tireTracker.totalPrice,
-        error: state.tireTracker.error
+        error: state.tireTracker.error,
+        token: state.auth.token
     };
 }
 
@@ -233,7 +234,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onQuantityAdded: ( qntName ) => dispatch(actions.addQuantity(qntName)),
         onQuantityRemoved: ( qntName ) => dispatch(actions.removeQuantity(qntName)),
-        onInitQuantity: () => dispatch(actions.initQuantity()),
+        onInitQuantity: ( token ) => dispatch(actions.initQuantity( token )),
         onInitPurchase: () => dispatch(actions.purchaseInit())
     };
 }

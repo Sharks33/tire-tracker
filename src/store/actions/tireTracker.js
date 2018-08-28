@@ -28,9 +28,9 @@ export const fetchQuantityFailed = () => {
     }
 }
 
-export const initQuantity = () => {
+export const initQuantity = ( token ) => {
     return dispatch => {
-        axios.get('https://react-tire-tracker.firebaseio.com/tireQuantity.json')
+        axios.get( 'https://react-tire-tracker.firebaseio.com/tireQuantity.json?auth=' + token )
         .then(response => {
             dispatch(setQuantity(response.data));
         })

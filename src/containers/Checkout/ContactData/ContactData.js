@@ -173,7 +173,7 @@ class ContactData extends Component {
             // vehicle: this.state.vehicle,
         }
 
-        this.props.onOrderTire( order );
+        this.props.onOrderTire( order, this.props.token );
     }
 
     checkValidity = ( value, rules ) => {
@@ -298,7 +298,7 @@ class ContactData extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrderTire: ( orderData ) => dispatch( actions.purchaseTire( orderData ) )
+        onOrderTire: ( orderData, token ) => dispatch( actions.purchaseTire( orderData, token ) )
     };
 }
 
@@ -306,7 +306,8 @@ const mapStateToProps = state => {
     return {
         qnt: state.tireTracker.tireQuantity,
         price: state.tireTracker.totalPrice,
-        loading: state.order.loading
+        loading: state.order.loading,
+        token: state.auth.token
     }
 }
 

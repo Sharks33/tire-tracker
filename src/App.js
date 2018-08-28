@@ -7,6 +7,7 @@ import Checkout from './containers/Checkout/Checkout';
 import Orders from './containers/Orders/Orders';
 import Inventory from './containers/Inventory/Inventory';
 import Auth from './containers/Auth/Auth';
+import Logout from './containers/Auth/Logout/Logout';
 
 class App extends Component {
 
@@ -15,11 +16,12 @@ class App extends Component {
       <div>
         <Layout>
           <Switch>
-            <Route path="/" exact component={TireTracker} />
-            <Route path="/checkout" component={Checkout} />
-            <Route path="/orders" component={Orders} />
-            <Route path="/auth" component={Auth} />
-            <Route path="/inventory" component={Inventory} />
+            <Route path="/" exact component={ TireTracker } />
+            <Route path="/checkout" component={ Checkout } />
+            <Route path="/orders" component={ Orders } />
+            <Route path="/auth" component={ Auth } />
+            <Route path="/logout" component={ Logout } />
+            <Route path="/inventory" component={ Inventory } />
           </Switch>
           {/* <TireTracker />
           <Checkout /> */}

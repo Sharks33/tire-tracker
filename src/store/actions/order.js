@@ -22,10 +22,10 @@ export const purchaseTireStart = () => {
     }
 }
 
-export const purchaseTire = ( orderData ) => {
+export const purchaseTire = ( orderData, token ) => {
     return dispatch => {
         dispatch(purchaseTireStart());
-        axios.post('/orders.json', orderData)
+        axios.post('/orders.json?auth=' + token, orderData)
             .then( response => {
                 console.log(response.data);
                 dispatch( purchaseTireSuccess( response.data.name, orderData ) );

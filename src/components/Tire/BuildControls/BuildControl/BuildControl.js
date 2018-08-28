@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 import classes from './BuildControl.css';
 
@@ -14,7 +15,7 @@ class BuildControl extends Component {
     }
 
     componentDidMount () {
-        axios.get('https://react-tire-tracker.firebaseio.com/tires.json')
+        axios.get('https://react-tire-tracker.firebaseio.com/tires.json?auth=' + this.props.token )
         .then(response => {
             this.setState( { tires: response.data } );
         })
@@ -103,4 +104,10 @@ class BuildControl extends Component {
     };
 };
 
-export default BuildControl;
+const mapStateToProps = state => {
+    return {
+        token: state.auth.token
+    };
+}
+
+export default connect(mapStateToProps, null)(BuildControl);
